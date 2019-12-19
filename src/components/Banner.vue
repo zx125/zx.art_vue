@@ -1,6 +1,6 @@
 <template>
     <div class="banner">
-        <el-carousel height="400px">
+        <el-carousel height="850px">
             <el-carousel-item v-for="banner in banner_list" :key="banner.title">
                 <router-link :to="banner.link">
                     <img :src="banner.image" :title="banner.title"/>
@@ -28,20 +28,12 @@
 
 <style scoped>
     .banner {
-        height: 400px;
-    }
-    .banner .img {
-        height: 400px;
-        background-size: auto 400px;
-        background-position: center;
+        height: 850px;
     }
     .banner img{
-        height: 400px;
-        margin-left: calc(50% - 1920px/2);
     }
     .el-carousel__item {
         min-width: 1200px;
     }
-
 
 </style>

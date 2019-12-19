@@ -6,11 +6,7 @@
         <!--</div>-->
         <div class="nav">
             <ul class="left-part">
-                <!--<li class="logo">-->
-                <!--<router-link to="/">-->
-                <!--<img src="../assets/img/head-logo.svg" alt="">-->
-                <!--</router-link>-->
-                <!--</li>-->
+                <span id="logo" @click="goPage('/')" :class="{active: url_path === '/free'}">ZX汽车俱乐部</span>
                 <li class="ele">
                     <span @click="goPage('/free')" :class="{active: url_path === '/free'}">商城</span>
                 </li>
@@ -136,6 +132,16 @@
 </script>
 
 <style scoped>
+    #logo {
+        border-bottom: 10px solid #5f5f5f;
+        font-family: cursive;
+        font-size: 18px;
+        color: white;
+        right: 444px;
+        position: relative;
+        display: inline-block;
+    }
+
     .header {
         background-color: #181818;
     }
@@ -268,14 +274,14 @@
     .flex-ct-x {
         display: inline-block;
         float: left;
-        margin-left: 355px;
+        margin-left: 238px;
     }
 
     .fault-text {
         background-color: #181818;
         position: relative;
         font-weight: bold;
-        font-size: 52px;
+        font-size: 46px;
         color: #fff;
     }
 
