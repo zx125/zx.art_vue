@@ -13,6 +13,16 @@
                 </div>
             </div>
         </div>
+        <div style="text-align: center;margin-top: 80px">
+            <el-pagination
+                    @current-change="handleCurrentChange"
+                    background
+                    layout="prev, pager, next"
+                    :page-size="page_size"
+                    :total="course_total">
+            </el-pagination>
+        </div>
+
     </div>
 </template>
 
@@ -21,22 +31,39 @@
         name: "activity",
         data() {
             return {
-                clubs: []//俱乐部列表
+                clubs: [],
+                page: 1,//俱乐部列表
+                course_total: 0,   // 当前俱乐部的总数量
+                page_size:2
             }
         },
         created() {
             this.get_club();
         },
+        watch: {
+            "page": function () {
+                this.get_club();
+            },
+        },
         methods: {
             get_club() {
-                this.$axios.get(`${this.$settings.base_url}/club/clubs`).then(response => {
-                    this.clubs = response.data;
+                this.$axios.get(`${this.$settings.base_url}/club/clubs`, {
+                    params:{
+                        page:this.page,
+                    }
+                }).then(response => {
+                    this.course_total = response.data.count;
+                    this.clubs = response.data.results;
                 }).catch(() => {
                     this.$message({
                         message: "获取课程俱乐部数据有误",
                     })
                 })
-            }
+            },
+            handleCurrentChange(val) {
+                // 页码发生变化时执行的方法
+                this.page = val;
+            },
         }
     }
 </script>

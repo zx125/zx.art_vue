@@ -8,7 +8,7 @@
             <ul class="left-part">
                 <span id="logo" @click="goPage('/')" :class="{active: url_path === '/free'}">ZX汽车俱乐部</span>
                 <li class="ele">
-                    <span @click="goPage('/free')" :class="{active: url_path === '/free'}">商城</span>
+                    <span @click="goPage('/shop')" :class="{active: url_path === '/shop'}">商城</span>
                 </li>
                 <li class="ele">
                     <span @click="goPage('/course')" :class="{active: url_path === '/course'}">论坛</span>
