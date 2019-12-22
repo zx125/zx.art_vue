@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Shop from '../views/Shop.vue'
+import PaySuccess from '../views/PaySuccess.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
         path: '/shop',
         name: 'shop',
         component: Shop
+    },
+    {
+        path: '/pay/success',
+        name: 'PaySuccess',
+        component: PaySuccess
     },
 ]
 
