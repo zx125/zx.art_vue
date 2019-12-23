@@ -39,7 +39,7 @@
             <div class="car_st" v-for="car in cat_data" :key="car.id">
                 <img class="car_img" :src="car.ima_url">
                 <div class="car_mes">
-                    <P class="car_name">{{car.name}}</P><span class="car_brand">品牌：{{car.brand}}</span>
+                    <p class="car_name">{{car.name}}</p><span class="car_brand">品牌：{{car.brand}}</span>
                     <p class="car_price">价格:<span class="car_ps">{{car.price}}万</span></p>
                     <p class="car_type">车型:{{car.car_type}}</p>
                     <el-row>

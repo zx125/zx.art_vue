@@ -11,7 +11,7 @@
                     <span @click="goPage('/shop')" :class="{active: url_path === '/shop'}">商城</span>
                 </li>
                 <li class="ele">
-                    <span @click="goPage('/course')" :class="{active: url_path === '/course'}">论坛</span>
+                    <span @click="goPage('/blog')" :class="{active: url_path === '/blog'}">论坛</span>
                 </li>
                 <li class="ele">
                     <span @click="goPage('/light-course')" :class="{active: url_path === '/light-course'}">新闻</span>
