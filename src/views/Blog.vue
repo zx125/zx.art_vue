@@ -25,13 +25,13 @@
             </div>
             <div id="tab">
                     <div class="tag-group">
-                        <el-tag style="margin-left: 20px;margin-bottom: 10px;" v-for="tab in tabs" :key="tab.id" type="success" effect="dark">
+                        <el-tag style="margin-left: 20px;margin-bottom: 10px;" v-for="tab in tabs" :key="tab.id" type="success" effect="dark" @click="tab_cli($event)">
                             {{ tab.name }}
                         </el-tag>
                     </div>
             </div>
             <div id="zx_art">
-                <div class="artcle" v-for="art in arts" :key="art.id">
+                <div class="artcle" v-for="art in arts" :key="art.id" @click="go_art(art.id)">
                     <img class="art_img" :src="art.user_ico"/>
                     <div class="img_div">
                         <router-link class="art_name" to="/">{{art.title}}</router-link>
@@ -82,6 +82,7 @@
                 cats: [],
                 len: "",
                 tabs: [],
+                tab_list:[],
                 arts: [],
                 filters: {
                     category: '',
@@ -100,6 +101,12 @@
             },
         },
         methods: {
+            go_art(id){
+                this.$router.push('/art/'+id)
+            },
+            tab_cli(event){
+                console.log(event)
+            },
             get_tabs() {
                 this.$axios.get(`${this.$settings.base_url}/blog/art_tab`).then(response => {
                     this.tabs = response.data;

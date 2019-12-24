@@ -8,7 +8,7 @@
                     <p class="act_qt">地址:{{club.province}}{{club.city}}-{{club.area}}-{{club.address}}</p>
                     <p class="act_qt">人数：{{club.nums}}</p>
                     <p class="act_body">{{club.brief}}</p>
-                    <input type="button" class="main-btn" value="了解详情"
+                    <input type="button" class="main-btn" value="了解详情" @click="go_detail(club.id)"
                            style="width: 145px; height: 50px; line-height: 48px;">
                 </div>
             </div>
@@ -59,6 +59,10 @@
                         message: "获取课程俱乐部数据有误",
                     })
                 })
+            },
+            go_detail(id){
+                this.$router.push('/club/'+id)
+                console.log(id)
             },
             handleCurrentChange(val) {
                 // 页码发生变化时执行的方法

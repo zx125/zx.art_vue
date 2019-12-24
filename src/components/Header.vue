@@ -23,12 +23,13 @@
             </div>
             <div class="right-part">
                 <div v-if="!token">
+
                     <span class="user" @click="put_login">登录</span>
                     <span class="line">|</span>
                     <span class="user" @click="put_register">注册</span>
                 </div>
                 <div v-else>
-                    <span class="user">{{ username }}</span>
+                    <span class="user">{{le}}-{{ username }}</span>
                     <span class="line">|</span>
                     <span class="user" @click="logout">注销</span>
                 </div>
@@ -59,6 +60,7 @@
         name: "Header",
         data() {
             return {
+                le: "",
                 url_path: sessionStorage.url_path || '/',
                 is_login: false,
                 is_register: false,
@@ -74,6 +76,19 @@
             Register,
         },
         methods: {
+            is_vip() {
+                let token = this.$cookies.get('token');
+                this.$axios({
+                    url: this.$settings.base_url + '/user/vip',
+                    method: 'get',
+                    headers: {
+                        Authorization: `jwt ${token}`
+                    }
+                }).then(response => {
+                    this.le = response.data.results
+                }).catch(() => {
+                })
+            },
             on_search() {
                 this.search_placeholder = '请输入想搜索的课程';
                 this.is_search_tip = false;
@@ -125,6 +140,7 @@
             }
         },
         created() {
+            this.is_vip();
             sessionStorage.url_path = this.$route.path;
             this.url_path = this.$route.path;
         }
@@ -132,6 +148,12 @@
 </script>
 
 <style scoped>
+    .zx {
+        color: white;
+        display: inline-block;
+        margin-right: 20px;
+    }
+
     #logo {
         border-bottom: 10px solid #5f5f5f;
         font-family: cursive;

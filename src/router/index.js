@@ -4,6 +4,9 @@ import Home from '../views/Home.vue'
 import Shop from '../views/Shop.vue'
 import PaySuccess from '../views/PaySuccess.vue'
 import Blog from '../views/Blog.vue'
+import Club from '../views/Club.vue'
+import PaySuccess_Club from '../views/PaySuccess_club.vue'
+import Art from '../views/Art.vue'
 
 Vue.use(VueRouter)
 
@@ -24,9 +27,24 @@ const routes = [
         component: PaySuccess
     },
     {
+        path: '/pay/success_club',
+        name: 'PaySuccessClub',
+        component: PaySuccess_Club
+    },
+    {
         path: '/blog',
         name: 'Blog',
         component: Blog
+    },
+    {
+        path: '/club/:pk',
+        name: 'Club',
+        component: Club
+    },
+    {
+        path: '/art/:pk',
+        name: 'Art',
+        component: Art
     },
 ]
 

@@ -4,7 +4,7 @@
         <div class="main">
             <div class="title">
                 <div class="success-tips">
-                    <p class="tips">恭喜老板！您已成功购买一辆车！</p>
+                    <p class="tips">会员充值成功！</p>
                 </div>
             </div>
             <div class="order-info">
@@ -13,7 +13,7 @@
                 <p class="info"><b>付款时间：</b><span><span>{{ result.timestamp }}</span></span></p>
             </div>
             <div class="study">
-                <span>在买一辆！</span>
+                <span>欢迎加入俱乐部</span>
             </div>
         </div>
         <!--<Footer/>-->
@@ -38,7 +38,7 @@
                 this.$message({
                     message: '非法请求',
                     type: 'error',
-                    onClose: ()=> {
+                    onClose: () => {
                         this.$router.push('/');
                     }
                 });
@@ -71,7 +71,7 @@
                 url: this.$settings.base_url + '/club/success' + location.search,
                 method: 'patch',
                 headers: {
-                    Authorization: token
+                    Authorization: `jwt ${token}`
                 }
             }).then(response => {
                 console.log(response.data);
@@ -122,7 +122,6 @@
         font-size: 26px;
         color: #000;
     }
-
 
     .info span {
         color: #ec6730;
