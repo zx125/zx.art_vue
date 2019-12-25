@@ -23,13 +23,13 @@
                     <el-button type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
                 </ul>
             </div>
-            <div id="tab">
-                    <div class="tag-group">
-                        <el-tag style="margin-left: 20px;margin-bottom: 10px;" v-for="tab in tabs" :key="tab.id" type="success" effect="dark" @click="tab_cli($event)">
-                            {{ tab.name }}
-                        </el-tag>
-                    </div>
-            </div>
+            <!--<div id="tab">-->
+                    <!--<div class="tag-group">-->
+                        <!--<el-tag style="margin-left: 20px;margin-bottom: 10px;" v-for="tab in tabs" :key="tab.id" type="success" effect="dark" @click="tab_cli($event)">-->
+                            <!--{{ tab.name }}-->
+                        <!--</el-tag>-->
+                    <!--</div>-->
+            <!--</div>-->
             <div id="zx_art">
                 <div class="artcle" v-for="art in arts" :key="art.id" @click="go_art(art.id)">
                     <img class="art_img" :src="art.user_ico"/>

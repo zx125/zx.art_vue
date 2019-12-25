@@ -25,16 +25,20 @@
                     </div>
                 </el-col>
                 <el-col :span="12" style="height: 400px">
-                    <img class="it_car">
-                    <img class="it_car">
-                    <img class="it_car">
-                    <img class="it_car">
+                    <img class="it_car"
+                         src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3633107065,4021221981&fm=26&gp=0.jpg">
+                    <img class="it_car"
+                         src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577282689669&di=935e4aa78c0284deb30e12b6119f78a5&imgtype=0&src=http%3A%2F%2Fimg2.bitauto.com%2Fautoalbum%2Ffiles%2F20120521%2F591%2F14194259135369_1911449_3.jpg">
+                    <img class="it_car"
+                         src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1833221302,595832094&fm=26&gp=0.jpg">
+                    <img class="it_car"
+                         src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577282735801&di=8c0a38219376b8255588755bbc473bd8&imgtype=0&src=http%3A%2F%2Fhimg2.huanqiu.com%2Fattachment2010%2F2015%2F0817%2F16%2F59%2F20150817045919628.jpg">
                 </el-col>
             </el-row>
         </div>
         <div id="all3">
             <div class="car_ls">
-
+                <P id="haha">限时特卖  ！ 仅此一天</P>
             </div>
             <div class="car_st" v-for="car in cat_data" :key="car.id">
                 <img class="car_img" :src="car.ima_url">
@@ -68,11 +72,25 @@
             return {
                 activeName: '热门车型',
                 cats: [],
+                le: '',
                 cat_data: [],
                 banner_list: [],
             };
         },
         methods: {
+            zx() {
+                this.$axios.get(`${this.$settings.base_url}/car/cat_data`, {
+                    params: {
+                        qid: 5
+                    }
+                }).then(response => {
+                    this.cat_data = response.data.results;
+                }).catch(() => {
+                    this.$message({
+                        message: "获取车辆数据有误",
+                    })
+                })
+            },
             handleClick(tab, event) {
                 console.log(tab.$attrs.qid);
                 this.$axios.get(`${this.$settings.base_url}/car/cat_data`, {
@@ -111,33 +129,68 @@
                     });
                     return false
                 }
-                // 已登录
+                this.is_vip(id);
+            },
+            is_vip(id) {
+                let token = this.$cookies.get('token');
                 this.$axios({
-                    url: this.$settings.base_url + '/car/car_order',
-                    method: 'post',
-                    data: {
-                        car: id,
-                    },
+                    url: this.$settings.base_url + '/user/vip',
+                    method: 'get',
                     headers: {
-                        authorization: `jwt ${token}`
+                        Authorization: `jwt ${token}`
                     }
                 }).then(response => {
-                    // console.log(response.data)
-                    let pay_url = response.data;
-                    window.open(pay_url, '_self');
-                }).catch(error => {
-                    console.log(error.response.data)
+                    this.le = response.data.results;
+                    if (this.le == "会员VIP") {
+                        // 已登录
+                        this.$axios({
+                            url: this.$settings.base_url + '/car/car_order',
+                            method: 'post',
+                            data: {
+                                car: id,
+                            },
+                            headers: {
+                                authorization: `jwt ${token}`
+                            }
+                        }).then(response => {
+                            // console.log(response.data)
+                            let pay_url = response.data;
+                            window.open(pay_url, '_self');
+                        }).catch(error => {
+                            this.$message({
+                                message: "只能买一辆哦",
+                                type: 'warning',
+                                duration: 1000,
+                            });
+                            console.log(error.response.data)
+                        })
+                    }
+                    else {
+                        this.$message({
+                            message: "请先购买会员",
+                            type: 'warning',
+                            duration: 1000,
+                        });
+                    }
+                }).catch(() => {
                 })
-            }
+            },
         },
         created() {
             this.get_cat();
             this.get_banner();
+            this.zx()
         }
     }
 </script>
 
 <style scoped>
+    #haha {
+        font-family: cursive;
+        font-size: 200px;
+        color: red;
+    }
+
     .car_name {
         margin-top: 28px;
         margin-left: 80px;
@@ -208,7 +261,6 @@
         height: 1000px;
         width: 25%;
         float: right;
-        background: aqua;
     }
 
     .it_car {
